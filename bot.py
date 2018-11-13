@@ -50,7 +50,15 @@ async def help():
         Shows Info about user.
        
        `` Ping``
-        Says :ping_pong: Pong!""",
+        Says :ping_pong: Pong!
+        ``Scpmakemod``
+        Makes a mod. Usage ``Scpmakemod @user``
+        ``Scpremovemod``
+        Removes mod. Usage: ``Scpremovemod @user``
+        ``Scppoll``
+        Makes a poll. Usage: ``Scppoll <Question>``
+        ``Scpbans``
+        Shows a ban list""",
         
         color = discord.Color.orange()
 )
