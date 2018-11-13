@@ -24,6 +24,17 @@ client.remove_command('help')
 async def on_ready():
     print("The bot is online and connected with Discord!")
 
+def is_owner(ctx):
+    return ctx.message.author.id == "342364288310312970"
+
+def is_admin(ctx):
+    return ctx.message.author.id == "365188701346594826"
+
+def is_mod(ctx):
+    return ctx.message.author.id == "459019082943954945"
+
+
+
 @client.event
 async def on_message(message):
     await client.process_commands(message)
@@ -81,6 +92,7 @@ async def userinfo(ctx, user: discord.Member):
 
 @client.command(pass_context=True)  
 @commands.has_permissions(kick_members=True)     
+@commands.check(is_mod)
 async def kick(ctx,user:discord.Member):
 
     if user.server_permissions.kick_members:
@@ -98,7 +110,8 @@ async def kick(ctx,user:discord.Member):
 
     
 @client.command(pass_context=True)  
-@commands.has_permissions(ban_members=True)      
+@commands.has_permissions(ban_members=True) 
+@commands.check(is_admin)
 async def ban(ctx,user:discord.Member):
 
     if user.server_permissions.ban_members:
@@ -149,7 +162,7 @@ async def serverinfo(ctx):
 
 @client.command(pass_context=True)  
 @commands.has_permissions(ban_members=True)     
-
+@commands.check(is_admin)
 
 async def unban(ctx):
     ban_list = await client.get_bans(ctx.message.server)
@@ -175,13 +188,14 @@ async def unban(ctx):
 
 @client.command(pass_context=True)
 @commands.has_permissions(kick_members=True)
+@commands.check(is_mod)
 async def warn(ctx, userName: discord.User, *, message:str):
         await client.send_message(userName, "You have been warned for: {}".format(message)) 
         await client.say("warning {0} Has Been Warned! Warning Reason : {1} ".format(userName,message))
         pass
 
 @client.command(pass_context = True)
-
+@commands.check(is_owner)
 async def restart():
     await client.logout()
 
@@ -218,6 +232,7 @@ async def poll(ctx, question, *options: str):
 
 @client.command(pass_context = True)
 @commands.has_permissions(manage_messages=True)  
+@commands.check(is_mod)
 async def clear(ctx, number):
  
     if ctx.message.author.server_permissions.manage_messages:
@@ -251,6 +266,7 @@ async def bans(ctx):
 
 @client.command(pass_context = True)
 @commands.has_permissions(administrator=True)     
+@commands.check(is_admin)
 async def makemod(ctx, user: discord.Member):
     nickname = '♏' + user.name
     await client.change_nickname(user, nickname=nickname)
@@ -265,7 +281,8 @@ async def makemod(ctx, user: discord.Member):
     await client.delete_message(ctx.message)
     
 @client.command(pass_context = True)
-@commands.has_permissions(administrator=True)     
+@commands.has_permissions(administrator=True)    
+@commands.check(is_admin)
 async def removemod(ctx, user: discord.Member):
     nickname = user.name
     await client.change_nickname(user, nickname=nickname)
