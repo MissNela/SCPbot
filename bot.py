@@ -17,7 +17,7 @@ from discord import Game, Embed, Color, Status, ChannelType
 
 
 
-client = commands.Bot(command_prefix = 'P!')
+client = commands.Bot(command_prefix = 'Scp')
 client.remove_command('help')
 
 @client.event
