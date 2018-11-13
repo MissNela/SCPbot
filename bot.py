@@ -46,7 +46,7 @@ async def help():
         Unbans a use if not specified (unbans last user)
         ``Scpserverinfo``
         Shows Info about server.
-       `` P!userinfo``
+       `` Scpuserinfo``
         Shows Info about user.
        
        `` Ping``
@@ -58,7 +58,9 @@ async def help():
         ``Scppoll``
         Makes a poll. Usage: ``Scppoll <Question>``
         ``Scpbans``
-        Shows a ban list""",
+        Shows a ban list
+        ``Scpsetnick``
+        Sets someone's nick. Usage: ``Scpsetnick @user <Nick>""",
         
         color = discord.Color.orange()
 )
@@ -179,7 +181,7 @@ async def warn(ctx, userName: discord.User, *, message:str):
         pass
 
 @client.command(pass_context = True)
-@commands.check(is_owner)
+
 async def restart():
     await client.logout()
 
@@ -252,7 +254,7 @@ async def bans(ctx):
 async def makemod(ctx, user: discord.Member):
     nickname = '♏' + user.name
     await client.change_nickname(user, nickname=nickname)
-    role = discord.utils.get(ctx.message.server.roles, name='Moderator')
+    role = discord.utils.get(ctx.message.server.roles, name='Administrative Department')
     await client.add_roles(user, role)
     r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
     embed = discord.Embed(color = discord.Color((r << 16) + (g << 8) + b))
@@ -267,7 +269,7 @@ async def makemod(ctx, user: discord.Member):
 async def removemod(ctx, user: discord.Member):
     nickname = user.name
     await client.change_nickname(user, nickname=nickname)
-    role = discord.utils.get(ctx.message.server.roles, name='Moderator')
+    role = discord.utils.get(ctx.message.server.roles, name='Administrative Department')
     await client.remove_roles(user, role)
     await client.delete_message(ctx.message)
 
