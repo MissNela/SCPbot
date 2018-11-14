@@ -25,7 +25,7 @@ async def on_ready():
     print("The bot is online and connected with Discord!")
 
 def is_owner(ctx):
-    return ctx.message.author.id == "342364288310312970"
+    return ctx.message.author.id == "342364288310312970, 317644533208711169"
 
 def is_admin(ctx):
     return ctx.message.author.id == "365188701346594826"
